@@ -10,8 +10,7 @@
     <form id="search-form">
       <img src="./icons/search.png" alt="search">
       <input type="search" placeholder="Search for a location...">
-      <img src="./icons/remove.png" alt="remove">
-      <button>Search</button>
+      <button>&#x21B3;</button>
     </form>
     <div id="settings-container">
       <img src="./icons/settings.png" alt="settings">
@@ -28,138 +27,196 @@
       </div>
       <div class="secondary">
         <div id="min">
-          <img src="./icons/arrow-down.png" alt="">
-          <div>Min</div>
-          <div>12.2°</div>
+          <div class="img-container">
+            <img src="./icons/arrow-down.png" alt="">
+          </div>
+          <div class="data">
+            <div class="text">Min</div>
+            <div class="number">12.2°</div>
+          </div>
         </div>
         <div id="max">
-          <img src="./icons/up-arrow.png" alt="">
-          <div>Max</div>
-          <div>35.1°</div>
-          <div id="feels-like">Feels like 13.6°</div>
+          <div class="img-container">
+            <img src="./icons/up-arrow.png" alt="">
+          </div>
+          <div class="data">
+            <div class="text">Max</div>
+            <div class="number">35.1°</div>
+          </div>
         </div>
+        <div id="feels-like">Feels like 13.6°</div>
       </div>
     </div>
     <div class="bottom">
-      <div id="chance-of-rain">
-        <img src="./icons/heavy-rain.png" alt="">
-        <div>Chance of rain</div>
-        <div>0%</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/heavy-rain.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">Chance of rain</div>
+          <div id="chance-of-rain" class="number">0%</div>
+        </div>
       </div>
-      <div id="wind">
-        <img src="./icons/arrow-right.png" alt="">
-        <div>Wind</div>
-        <div>7.9km/h</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/arrow-right.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">Wind</div>
+          <div id="wind" class="number">7.9km/h</div>
+        </div>
       </div>
-      <div id="sunrise">
-        <img src="./icons/sunrise.png" alt="">
-        <div>Sunrise</div>
-        <div>05:38 AM</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/sunrise.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">Sunrise</div>
+          <div id="sunrise" class="number">05:38 AM</div>
+        </div>
       </div>
-      <div id="sunset">
-        <img src="./icons/sunset.png" alt="">
-        <div>Sunset</div>
-        <div>07:34 PM</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/sunset.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">Sunset</div>
+          <div id="sunset" class="number">07:34 PM</div>
+        </div>
       </div>
-      <div id="uv-index">
-        <img src="./icons/sun.png" alt="">
-        <div>UV Index</div>
-        <div>2.6</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/sun.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">UV Index</div>
+          <div id="uv-index" class="number">2.6</div>
+        </div>
       </div>
-      <div id="pressure">
-        <img src="./icons/trend.png" alt="">
-        <div>Pressure</div>
-        <div>1011 mb</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/trend.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">Pressure</div>
+          <div id="pressure" class="number">1011 mb</div>
+        </div>
       </div>
-      <div id="humidity">
-        <img src="./icons/raindrop.png" alt="">
-        <div>Humidity</div>
-        <div>40%</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/raindrop.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">Humidity</div>
+          <div id="humidity" class="number">40%</div>
+        </div>
       </div>
-      <div id="gusts">
-        <img src="./icons/wind.png" alt="">
-        <div>Gusts</div>
-        <div>16.6 km/h</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/wind.png" alt="">
+        </div>
+        <div class="data">
+          <div class="text">Gusts</div>
+          <div id="gusts" class="number">16.6 km/h</div>
+        </div>
       </div>
     </div>
   </div>
   <div id="hourly-container">
-    <div>Hourly</div>
+    <div class="heading">Hourly</div>
     <div id="hourly-data-container">
-      <div>
+      <div class="card">
         <div>5 AM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
-      <div>
+      <div class="card">
         <div>6 AM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
-      <div>
+      <div class="card">
         <div>7 AM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
-      <div>
+      <div class="card">
         <div>8 AM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
-      <div>
+      <div class="card">
         <div>9 AM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
-      <div>
+      <div class="card">
         <div>10 AM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
-      <div>
+      <div class="card">
         <div>11 AM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
-      <div>
+      <div class="card">
         <div>12 PM</div>
         <img src="./icons/sunny.png" alt="">
       </div>
     </div>
   </div>
   <div id="week-container">
-    <div>This Week</div>
+    <div class="heading">This Week</div>
     <div id="week-data-container">
-      <div>
-        <img src="./icons/sunny.png" alt="">
-        <div>SUN</div>
-        <div>18 MAY</div>
-        <div>
-          <div>12.2°</div>
-          <div>min</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/sunny.png" alt="">
         </div>
-        <div>
-          <div>35.1°</div>
-          <div>max</div>
-        </div>
-      </div>
-      <div>
-        <img src="./icons/sunny.png" alt="">
-        <div>MON</div>
-        <div>19 MAY</div>
-        <div>
-          <div>10.8°</div>
-          <div>min</div>
-        </div>
-        <div>
-          <div>34°</div>
-          <div>max</div>
+        <div class="data">
+          <div class="week">SUN</div>
+          <div class="date">18 MAY</div>
+          <div class="data">
+            <div>
+              <div class="number">12.2°</div>
+              <div class="text">min</div>
+            </div>
+            <div>
+              <div class="number">35.1°</div>
+              <div class="text">max</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <img src="./icons/sunny.png" alt="">
-        <div>TUE</div>
-        <div>20 MAY</div>
-        <div>
-          <div>21.5°</div>
-          <div>min</div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/sunny.png" alt="">
         </div>
-        <div>
-          <div>38.8°</div>
-          <div>max</div>
+        <div class="data">
+          <div class="week">MON</div>
+          <div class="date">19 MAY</div>
+          <div class="data">
+            <div>
+              <div class="number">10.8°</div>
+              <div class="text">min</div>
+            </div>
+            <div>
+              <div class="number">34°</div>
+              <div class="text">max</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-container">
+          <img src="./icons/sunny.png" alt="">
+        </div>
+        <div class="data">
+          <div class="week">TUE</div>
+          <div class="date">20 MAY</div>
+          <div class="data">
+            <div>
+              <div class="number">21.5°</div>
+              <div class="text">min</div>
+            </div>
+            <div>
+              <div class="number">38.8°</div>
+              <div class="text">max</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

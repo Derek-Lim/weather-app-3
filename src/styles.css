@@ -1,22 +1,31 @@
 * {
   margin: 0;
   padding: 0;
-  border: 1px solid;
+  font-family: sans-serif;
+  /* border: 1px solid; */
 }
 
 :root {
   --light-grey: rgb(240 240 240);
-  --sm-icon: 1rem;
-  --md-icon: 1.5rem;
-  --lg-icon: 2rem;
-  --xl-icon: 2.5rem;
-  --xxl-icon: 3.5rem;
-  --xxxl-icon: 5rem;
+  --grey: rgb(110 110 110);
+  --dark-grey: rgb(50 50 50);
+
+  --xs-icon: 1.25rem;
+  --sm-icon: 2.25rem;
+  --md-icon: 3.5rem;
+  --lg-icon: 3.5rem;
+  --xl-icon: 5rem;
+  --xxl-icon: 7rem;
+
+  --sm-text: 1.25rem;
+  --md-text: 1.75rem;
+  --lg-text: 2.25rem;
+  --xl-text: 7rem;
 }
 
 img {
   display: block;
-  width: var(--sm-icon);
+  width: var(--xs-icon);
 }
 
 body {
@@ -27,17 +36,17 @@ body {
 /* top-controls-container */
 
 #top-controls-container {
-  padding: 10px;
+  padding: 1em;
   display: flex;
-  gap: 10px;
+  gap: 1rem;
 }
 
 #search-form {
-  padding: 10px 20px;
+  padding: 1em 1.5em;
   display: flex;
-  gap: 10px;
+  gap: 1rem;
   flex-grow: 1;
-  border-radius: 30px;
+  border-radius: 2rem;
   background-color: var(--light-grey);
 }
 
@@ -45,15 +54,23 @@ input {
   border: none;
   flex-grow: 1;
   background-color: var(--light-grey);
+  font-size: 1rem;
 }
 
 input:focus {
   outline: none;
 }
 
+button {
+  padding: 0 .5em;
+  border-radius: .5rem;
+}
+
 #settings-container {
+  display: flex;
+  align-items: center;
   border-radius: 50%;
-  padding: 10px;
+  padding: 1em;
   background-color: var(--light-grey);
 }
 
@@ -64,25 +81,148 @@ input:focus {
   flex-direction: column;
 }
 
+/* current-data-container > .top */
+
 #current-data-container > .top {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* current-data-container > .top  > .main */
+
 #current-data-container > .top > .main {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 1.5rem;
 }
 
-#current-data-container > .top > .secondary {
-  display: flex;
+#current-data-container > .top > .main > img {
+  width: var(--xl-icon);
 }
+
+#temp {
+  font-size: var(--xl-text);
+  font-weight: bold;
+}
+
+#conditions {
+  font-size: var(--md-text);
+  color: var(--grey);
+  margin-top: -1rem;
+}
+
+/* current-data-container > .top  > .secondary */
+
+#current-data-container > .top > .secondary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#current-data-container > .top > .secondary > #min {
+  display: flex;
+  gap: .5rem;
+  padding: .5em 1.5em;
+}
+
+#min > .img-container {
+  display: flex;
+  align-items: center;
+}
+
+#min img {
+  width: var(--xs-icon);
+}
+
+#min > .data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+}
+
+#min > .data > .text {
+  font-size: var(--sm-text);
+  color: var(--grey);
+}
+
+#min > .data > .number {
+  font-size: var(--lg-text);
+}
+
+#current-data-container > .top > .secondary > #max {
+  display: flex;
+  gap: .5rem;
+  padding: .5em 1.5em;
+}
+
+#max > .img-container {
+  display: flex;
+  align-items: center;
+}
+
+#max img {
+  width: var(--xs-icon);
+}
+
+#max > .data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+}
+
+#max > .data > .text {
+  font-size: var(--sm-text);
+  color: var(--grey);
+}
+
+#max > .data > .number {
+  font-size: var(--lg-text);
+}
+
+#feels-like {
+  color: var(--grey);
+  font-size: var(--sm-text);
+  text-align: center;
+  grid-column-start: 2;
+  padding: .5em;
+}
+
+/* current-data-container > .bottom */
 
 #current-data-container > .bottom {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  padding: 1em 2em;
+  grid-row-gap: 1.5rem;
+}
+
+#current-data-container > .bottom > .card {
+  display: flex;
+  gap: 1rem;
+}
+
+#current-data-container > .bottom > .card > .img-container {
+  display: flex;
+  align-items: center;
+}
+
+#current-data-container > .bottom > .card > .data {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+#current-data-container > .bottom > .card > .data > .text {
+  color: var(--dark-grey);
+}
+
+#current-data-container > .bottom > .card > .data > .number {
+  font-size: var(--sm-text);
 }
 
 /* hourly-container */
@@ -92,10 +232,31 @@ input:focus {
   flex-direction: column;
 }
 
-#hourly-container > #hourly-data-container {
+#hourly-container > .heading {
+  padding: .75em;
+  font-size: var(--md-text);
+}
+
+#hourly-data-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  padding: .75em;
+  gap: .5rem;
+}
+
+#hourly-data-container > .card {
+  background-color: var(--light-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 1rem;
+  border-radius: .75rem;
+}
+
+#hourly-data-container > .card img {
+  width: var(--sm-icon);
 }
 
 /* week-container */
@@ -105,7 +266,59 @@ input:focus {
   flex-direction: column;
 }
 
-#week-container > #week-data-container {
+#week-container > .heading {
+  padding: .75em;
+  font-size: var(--md-text);
+}
+
+#week-data-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  padding: .75em;
+  gap: .75em;
+}
+
+#week-data-container > .card {
+  background-color: var(--light-grey);
+  display: flex;
+  padding: 1em;
+  border-radius: .75rem;
+}
+
+#week-data-container > .card > .img-container {
+  display: flex;
+  align-items: center;
+  padding: 1.5em 1.5em 1.5em .5em;
+}
+
+#week-data-container > .card > .img-container > img {
+  width: var(--md-icon);
+}
+
+#week-data-container > .card > .data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .25rem;
+}
+
+#week-data-container > .card > .data > .data {
+  display: flex;
+  gap: 1rem;
+}
+
+#week-data-container > .card > .data > .week {
+  font-weight: bold;
+}
+
+#week-data-container > .card > .data > .date {
+  color: var(--dark-grey);
+}
+
+#week-data-container > .card > .data > .data .number {
+  font-size: var(--md-text);
+}
+
+#week-data-container > .card > .data > .data .text {
+  font-size: var(--sm-text);
 }
