@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  border: 1px solid;
+  /* border: 1px solid; */
 }
 
 :root {
@@ -23,14 +23,16 @@
   --xl-text: 7rem;
 }
 
-img {
-  display: block;
-  width: var(--xs-icon);
-}
-
 body {
   display: flex;
   flex-direction: column;
+  max-width: 1000px;
+  margin: auto;
+}
+
+img {
+  display: block;
+  width: var(--xs-icon);
 }
 
 /* top-controls-container */
@@ -87,6 +89,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* justify-content: center; */
 }
 
 /* current-data-container > .top  > .main */
@@ -149,6 +152,7 @@ button {
 }
 
 #min > .data > .number {
+  font-weight: bold;
   font-size: var(--lg-text);
 }
 
@@ -180,6 +184,7 @@ button {
 }
 
 #max > .data > .number {
+  font-weight: bold;
   font-size: var(--lg-text);
 }
 
@@ -197,7 +202,7 @@ button {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  padding: 1em 2em;
+  padding: 1em clamp(1em, 5vw, 3em);
   grid-row-gap: 1.5rem;
 }
 
@@ -316,9 +321,56 @@ button {
 }
 
 #week-data-container > .card > .data > .data .number {
+  font-weight: bold;
   font-size: var(--md-text);
 }
 
 #week-data-container > .card > .data > .data .text {
   font-size: var(--sm-text);
+}
+
+@media (min-width: 36rem) {
+  #current-data-container > .top > .main > img {
+    width: var(--xxl-icon);
+  }
+}
+
+@media (min-width: 46rem) {
+  #current-data-container > .top {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  #current-data-container > .top > .main {
+    flex-direction: row;
+  }
+
+  #current-data-container > .top > .secondary {
+    grid-template-columns: 1fr;
+  }
+
+  #feels-like {
+    grid-column-start: 1;
+  }
+
+  #current-data-container > .bottom {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  #hourly-data-container {
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr;
+  }
+}
+
+@media (min-width: 56rem) {
+  #current-data-container > .top > .secondary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #feels-like {
+    grid-column-start: 2;
+  }
 }
