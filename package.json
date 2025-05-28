@@ -1,11 +1,8 @@
 {
-<<<<<<< HEAD
-=======
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack"
   },
->>>>>>> 1b63fdf (refactor: extract mappers and clean up logging)
   "devDependencies": {
     "css-loader": "^7.1.2",
     "html-loader": "^5.1.0",
@@ -15,8 +12,4 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.1"
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1b63fdf (refactor: extract mappers and clean up logging)
