@@ -27,7 +27,7 @@
 body {
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
+  max-width: 65rem;
   margin: auto;
 }
 
@@ -133,7 +133,7 @@ button {
   align-items: center;
 }
 
-.summary .main-info {
+.summary .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,7 +141,7 @@ button {
   gap: 1.5rem;
 }
 
-.summary .main-info > img {
+.summary .main-container > img {
   width: var(--xl-icon);
 }
 
@@ -340,7 +340,7 @@ button {
 }
 
 @media (min-width: 36rem) {
-  .summary .main-info > img {
+  .summary .main-container > img {
     width: var(--xxl-icon);
   }
 }
@@ -351,7 +351,7 @@ button {
     justify-content: space-around;
   }
 
-  .summary .main-info {
+  .summary .main-container {
     flex-direction: row;
   }
 
