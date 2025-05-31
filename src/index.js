@@ -12,9 +12,39 @@ import unknownIcon from './icons/unknown.png'
 
 const form = document.getElementById('location-form')
 
-document.addEventListener('DOMContentLoaded', () =>
-  handleFormSubmit(null, 'Silver Spring')
-)
+const STORAGE_KEYS = {
+  WEATHER: 'weather-data',
+  HAS_RUN: 'has-run'
+}
+
+const Storage = {
+  get(key, fallback = null) {
+    try {
+      const raw = localStorage.getItem(key)
+      return raw ? JSON.parse(raw) : fallback
+    } catch (err) {
+      console.warn(`Storage.get("${key}"):`, err.message)
+      return fallback
+    }
+  },
+
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value))
+    } catch (err) {
+      console.warn(`Storage.set("${key}"):`, err.message)
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (Storage.get(STORAGE_KEYS.HAS_RUN)) {
+    renderWeather()
+  } else {
+    Storage.set(STORAGE_KEYS.HAS_RUN, true)
+    handleFormSubmit(null, 'Silver Spring')
+  }
+})
 
 form.addEventListener('submit', handleFormSubmit)
 
@@ -28,7 +58,8 @@ async function handleFormSubmit(event, location) {
 
   try {
     const weatherData = await getWeatherData(location)
-    renderWeather(weatherData)
+    Storage.set(STORAGE_KEYS.WEATHER, weatherData)
+    renderWeather()
     console.log(JSON.stringify(weatherData, null, 2))
   } catch (err) {
     console.error('Error fetching weather data:', err.message)
@@ -36,7 +67,10 @@ async function handleFormSubmit(event, location) {
   }
 }
 
-function renderWeather(data) {
+function renderWeather() {
+  const data = Storage.get(STORAGE_KEYS.WEATHER)
+  if (!data) return console.warn('No weather data to render')
+
   try {
     renderCurrent(data)
     renderHourly(data.currentTime, data.hourlyIcons)
