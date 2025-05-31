@@ -11,11 +11,19 @@ import clearNightIcon from './icons/clear-night.png'
 import unknownIcon from './icons/unknown.png'
 
 const form = document.getElementById('location-form')
+
+document.addEventListener('DOMContentLoaded', () =>
+  handleFormSubmit(null, 'Silver Spring')
+)
+
 form.addEventListener('submit', handleFormSubmit)
 
-async function handleFormSubmit(event) {
-  event.preventDefault()
-  const location = form.querySelector('input').value.trim()
+async function handleFormSubmit(event, location) {
+  if (event?.type === 'submit') {
+    event.preventDefault()
+    location = form.querySelector('input').value.trim()
+  }
+
   if (!location) return console.warn('No location entered')
 
   try {
