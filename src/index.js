@@ -8,6 +8,7 @@ import partlyCloudyDayIcon from './icons/partly-cloudy-day.png'
 import partlyCloudyNightIcon from './icons/partly-cloudy-night.png'
 import clearDayIcon from './icons/clear-day.png'
 import clearNightIcon from './icons/clear-night.png'
+import unknownIcon from './icons/unknown.png'
 
 const form = document.getElementById('location-form')
 form.addEventListener('submit', handleFormSubmit)
@@ -18,9 +19,9 @@ async function handleFormSubmit(event) {
   if (!location) return console.warn('No location entered')
 
   try {
-    const weather = await getWeatherData(location)
-    renderWeather(weather)
-    console.log(JSON.stringify(weather, null, 2))
+    const weatherData = await getWeatherData(location)
+    renderWeather(weatherData)
+    console.log(JSON.stringify(weatherData, null, 2))
   } catch (err) {
     console.error('Error fetching weather data:', err.message)
     alert('Failed to load weather data. Please try another location.')
@@ -162,15 +163,18 @@ function createWeatherIcon(name) {
     'clear-night': clearNightIcon
   }
 
-  const src = ICONS[name]
-  if (!src) {
-    console.warn(`createWeatherIcon: unknown icon name "${name}"`)
-    return document.createTextNode('⚠')
-  }
+  const key = name?.toLowerCase()?.trim()
+  const src = ICONS[key]
 
   const img = document.createElement('img')
-  img.src = src
-  img.alt = formatAltText(name)
+  img.src = src || unknownIcon
+  img.alt = src ? formatAltText(key) : 'Unknown weather condition'
+  img.title = img.alt
+
+  if (!src) {
+    console.warn(`createWeatherIcon: unknown icon name "${name}"`)
+  }
+
   return img
 }
 
