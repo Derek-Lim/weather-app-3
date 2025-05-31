@@ -125,7 +125,7 @@ function renderWeek(days) {
   const container = document.getElementById('week-data-container')
   container.textContent = ''
 
-  days.forEach(day => {
+  days.slice(1).forEach(day => {
     const card = document.createElement('div')
     card.className = 'card'
 
@@ -260,7 +260,7 @@ function mapHourlyIcons(data) {
 }
 
 function mapDailyForecast(days) {
-  return days.slice(1, 7).map(d => ({
+  return days.slice(0, 7).map(d => ({
     icon: d.icon,
     date: d.datetime,
     min: d.tempmin,
