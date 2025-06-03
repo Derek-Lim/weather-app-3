@@ -16,7 +16,11 @@ module.exports = {
     },
     watchFiles: ["./src/template.html"],
     port: 3000,
-    open: true
+    open: {
+      app: {
+        name: 'Google Chrome'
+      }
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
