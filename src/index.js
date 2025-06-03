@@ -9,12 +9,28 @@ import partlyCloudyNightIcon from './icons/partly-cloudy-night.png'
 import clearDayIcon from './icons/clear-day.png'
 import clearNightIcon from './icons/clear-night.png'
 import unknownIcon from './icons/unknown.png'
+import metricIcon from './icons/metric.png'
+import imperialIcon from './icons/imperial.png'
 
 const form = document.getElementById('location-form')
+const unitGroupToggle = document.getElementById('unit-group-toggle')
 
 const STORAGE_KEYS = {
   WEATHER: 'weather-data',
-  HAS_RUN: 'has-run'
+  HAS_RUN: 'has-run',
+  UNIT_GROUP: 'unit-group',
+  LOCATION: 'location'
+}
+
+const units = {
+  temp: {
+    us: '°F',
+    metric: '°C'
+  },
+  speed: {
+    us: 'mph',
+    metric: 'km/h'
+  }
 }
 
 const Storage = {
@@ -38,15 +54,48 @@ const Storage = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const unitGroup = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
+  updateUnitGroupUI(unitGroup)
+
   if (Storage.get(STORAGE_KEYS.HAS_RUN)) {
     renderWeather()
   } else {
+    const defaultLocation = 'Silver Spring'
     Storage.set(STORAGE_KEYS.HAS_RUN, true)
-    handleFormSubmit(null, 'Silver Spring')
+    Storage.set(STORAGE_KEYS.UNIT_GROUP, unitGroup)
+    Storage.set(STORAGE_KEYS.LOCATION, defaultLocation)
+    handleFormSubmit(null, defaultLocation)
   }
 })
 
 form.addEventListener('submit', handleFormSubmit)
+
+unitGroupToggle.addEventListener('click', () => {
+  const newUnitGroup = switchUnitGroup()
+  updateUnitGroupUI(newUnitGroup)
+
+  const location = Storage.get(STORAGE_KEYS.LOCATION)
+  handleFormSubmit(null, location)
+})
+
+function getUnit(type) {
+  const group = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
+  return units[type]?.[group] || ''
+}
+
+function switchUnitGroup() {
+  const current = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
+  const next = current === 'us' ? 'metric' : 'us'
+  Storage.set(STORAGE_KEYS.UNIT_GROUP, next)
+  return next
+}
+
+function updateUnitGroupUI(unitGroup) {
+  const icon = unitGroupToggle.querySelector('img')
+  const label = unitGroupToggle.querySelector('.text')
+  icon.src = unitGroup === 'us' ? imperialIcon : metricIcon
+  label.textContent = unitGroup === 'us' ? 'Imperial' : 'Metric'
+}
 
 async function handleFormSubmit(event, location) {
   if (event?.type === 'submit') {
@@ -55,6 +104,7 @@ async function handleFormSubmit(event, location) {
   }
 
   if (!location) return console.warn('No location entered')
+  Storage.set(STORAGE_KEYS.LOCATION, location)
 
   try {
     const weatherData = await getWeatherData(location)
@@ -88,19 +138,19 @@ function renderCurrent(data) {
   if (imgEl) imgEl.remove()
 
   el('.main-container').prepend(createWeatherIcon(data.icon))
-  getById('temp').textContent = `${data.temp}°`
+  getById('temp').textContent = `${data.temp}${getUnit('temp')}`
   getById('conditions').textContent = data.conditions
-  el('#min-temp .value').textContent = `${data.dailyData[0].min}°`
-  el('#max-temp .value').textContent = `${data.dailyData[0].max}°`
-  getById('feels-like').textContent = `Feels like ${data.feelsLike}°`
+  el('#min-temp .value').textContent = `${data.dailyData[0].min}${getUnit('temp')}`
+  el('#max-temp .value').textContent = `${data.dailyData[0].max}${getUnit('temp')}`
+  getById('feels-like').textContent = `Feels like ${data.feelsLike}${getUnit('temp')}`
   getById('chance-of-rain').textContent = `${data.chanceOfRain ?? 'N/A'}%`
-  getById('wind').textContent = `${data.wind ?? 'N/A'} mph`
+  getById('wind').textContent = `${data.wind ?? 'N/A'} ${getUnit('speed')}`
   getById('sunrise').textContent = data.sunrise ? formatTime(data.sunrise) : 'N/A'
   getById('sunset').textContent = data.sunset ? formatTime(data.sunset) : 'N/A'
   getById('uv-index').textContent = data.uvIndex ?? 'N/A'
-  getById('pressure').textContent = data.pressure ? `${data.pressure} inHg` : 'N/A'
+  getById('pressure').textContent = data.pressure ? `${data.pressure} hPa` : 'N/A'
   getById('humidity').textContent = data.humidity ? `${data.humidity}%` : 'N/A'
-  getById('gusts').textContent = data.gusts ? `${data.gusts} mph` : '0 mph'
+  getById('gusts').textContent = data.gusts ? `${data.gusts} ${getUnit('speed')}` : `0 ${getUnit('speed')}`
 }
 
 function renderHourly(currentTime, icons) {
@@ -149,7 +199,7 @@ function renderWeek(days) {
 
     const buildTemp = (type, value) => {
       const block = document.createElement('div')
-      block.innerHTML = `<div class="number">${value}°</div><div class="text">${type}</div>`
+      block.innerHTML = `<div class="number">${value}${getUnit('temp')}</div><div class="text">${type}</div>`
       return block
     }
 
@@ -269,7 +319,8 @@ function mapDailyForecast(days) {
 }
 
 async function getWeatherData(location) {
-  const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}?key=JGM7G4V9AVASVNWUXBBZVPUPZ`
+  const unitGroup = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
+  const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}?unitGroup=${unitGroup}&key=JGM7G4V9AVASVNWUXBBZVPUPZ`
   const res = await fetch(url)
   if (!res.ok) throw new Error('Failed to fetch weather data')
 

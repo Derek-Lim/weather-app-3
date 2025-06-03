@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "clean": "rm -rf node_modules/.cache dist",
     "start": "webpack serve --open",
     "build": "webpack"
   },

@@ -267,7 +267,7 @@ button {
 
 #week-data-container.forecast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   padding: .75em;
   gap: .75em;
 }
