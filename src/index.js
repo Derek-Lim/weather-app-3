@@ -6,6 +6,7 @@ import { formatTime, formatHourOffset, formatDate, getDayName } from './formatte
 import { getWeatherData } from './api.js'
 
 const form = document.getElementById('location-form')
+const settingsButton = document.getElementById('settings-button')
 const unitGroupToggle = document.getElementById('unit-group-toggle')
 
 function switchUnitGroup() {
@@ -39,6 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 form.addEventListener('submit', handleFormSubmit)
 
+settingsButton.addEventListener('click', (e) => {
+  e.stopPropagation()
+
+  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
+  if (!isExpanded) {
+    settingsButton.setAttribute('aria-expanded', 'true')
+  }
+})
+
+document.addEventListener('click', (e) => {
+  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
+  const clickedInside = settingsButton.contains(e.target)
+
+  if (isExpanded && !clickedInside) {
+    settingsButton.setAttribute('aria-expanded', 'false')
+  }
+})
+
 unitGroupToggle.addEventListener('click', () => {
   const newUnitGroup = switchUnitGroup()
   updateUnitGroupUI(newUnitGroup)
@@ -57,7 +76,6 @@ async function handleFormSubmit(event, location) {
 
   try {
     const weatherData = await getWeatherData(location)
-    console.log(weatherData)
     Storage.set(STORAGE_KEYS.WEATHER, weatherData)
     renderWeather()
   } catch (err) {
