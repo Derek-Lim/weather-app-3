@@ -25,16 +25,18 @@ function updateUnitGroupUI(unitGroup) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const unitGroup = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
+  const location = Storage.get(STORAGE_KEYS.LOCATION)
+  const hasRun = Storage.get(STORAGE_KEYS.HAS_RUN)
   updateUnitGroupUI(unitGroup)
 
-  if (Storage.get(STORAGE_KEYS.HAS_RUN)) {
-    renderWeather()
+  if (hasRun && location) {
+    fetchAndRenderWeather(location)
   } else {
     const defaultLocation = 'Silver Spring'
     Storage.set(STORAGE_KEYS.HAS_RUN, true)
     Storage.set(STORAGE_KEYS.UNIT_GROUP, unitGroup)
     Storage.set(STORAGE_KEYS.LOCATION, defaultLocation)
-    handleFormSubmit(null, defaultLocation)
+    fetchAndRenderWeather(defaultLocation)
   }
 })
 
@@ -65,21 +67,26 @@ unitGroupToggle.addEventListener('click', () => {
     const newUnitGroup = switchUnitGroup()
     updateUnitGroupUI(newUnitGroup)
     const location = Storage.get(STORAGE_KEYS.LOCATION)
-    handleFormSubmit(null, location)
+    fetchAndRenderWeather(location)
   }
 })
 
-async function handleFormSubmit(event, location) {
-  if (event?.type === 'submit') {
-    event.preventDefault()
-    const input = form.querySelector('input')
-    location = input.value.trim()
-    input.value = ''
+async function handleFormSubmit(event) {
+  event.preventDefault()
+
+  const input = form.querySelector('input')
+  const location = input.value.trim()
+  if (!location) {
+    console.warn('No location entered')
+    return
   }
 
-  if (!location) return console.warn('No location entered')
+  input.value = ''
   Storage.set(STORAGE_KEYS.LOCATION, location)
+  await fetchAndRenderWeather(location)
+}
 
+async function fetchAndRenderWeather(location) {
   try {
     const weatherData = await getWeatherData(location)
     Storage.set(STORAGE_KEYS.WEATHER, weatherData)
