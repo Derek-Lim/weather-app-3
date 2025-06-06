@@ -72,7 +72,9 @@ unitGroupToggle.addEventListener('click', () => {
 async function handleFormSubmit(event, location) {
   if (event?.type === 'submit') {
     event.preventDefault()
-    location = form.querySelector('input').value.trim()
+    const input = form.querySelector('input')
+    location = input.value.trim()
+    input.value = ''
   }
 
   if (!location) return console.warn('No location entered')
