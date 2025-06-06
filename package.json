@@ -1,7 +1,7 @@
 {
   "scripts": {
     "clean": "rm -rf node_modules/.cache dist",
-    "start": "webpack serve",
+    "start": "webpack serve --open",
     "build": "webpack"
   },
   "devDependencies": {
@@ -11,6 +11,6 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.99.9",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.2"
   }
 }

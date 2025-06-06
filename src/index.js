@@ -59,10 +59,14 @@ document.addEventListener('click', (e) => {
 })
 
 unitGroupToggle.addEventListener('click', () => {
-  const newUnitGroup = switchUnitGroup()
-  updateUnitGroupUI(newUnitGroup)
-  const location = Storage.get(STORAGE_KEYS.LOCATION)
-  handleFormSubmit(null, location)
+  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
+
+  if (isExpanded) {
+    const newUnitGroup = switchUnitGroup()
+    updateUnitGroupUI(newUnitGroup)
+    const location = Storage.get(STORAGE_KEYS.LOCATION)
+    handleFormSubmit(null, location)
+  }
 })
 
 async function handleFormSubmit(event, location) {
