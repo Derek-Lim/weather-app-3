@@ -25,12 +25,12 @@
       </button>
       <nav class="dropdown-menu" aria-label="Settings options">
         <div class="dropdown-option" role="menuitem" id="unit-group-toggle">
-          <img src="./icons/imperial.png" alt="unit setting" data-invert>
-          <div class="text">Imperial</div>
+          <img alt="unit setting" data-invert>
+          <div class="text"></div>
         </div>
         <div class="dropdown-option" role="menuitem" id="theme-toggle">
-          <img src="./icons/light-mode.png" alt="theme setting" data-invert />
-          <div class="text">Light</div>
+          <img alt="theme setting" data-invert />
+          <div class="text"></div>
         </div>
         <div class="dropdown-option" role="menuitem">
           <img src="./icons/placeholder.png" alt="saved location" data-invert />
@@ -47,8 +47,8 @@
       <div class="main-container">
         <img src="./icons/clear-day.png" alt="Clear weather icon" />
         <div>
-          <div id="temp">13.2°</div>
-          <div id="conditions">Clear</div>
+          <div id="temp"></div>
+          <div id="conditions"></div>
         </div>
       </div>
       <div class="temperature-range">
@@ -56,17 +56,17 @@
           <img src="./icons/arrow-down.png" alt="Low temperature icon" data-invert />
           <div class="weather-data">
             <div class="label">Min</div>
-            <div class="value">12.2°</div>
+            <div class="value"></div>
           </div>
         </div>
         <div id="max-temp">
           <img src="./icons/up-arrow.png" alt="High temperature icon" data-invert />
           <div class="weather-data">
             <div class="label">Max</div>
-            <div class="value">35.1°</div>
+            <div class="value"></div>
           </div>
         </div>
-        <div id="feels-like">Feels like 13.6°</div>
+        <div id="feels-like"></div>
       </div>
     </section>
 
@@ -76,56 +76,56 @@
         <img src="./icons/heavy-rain.png" alt="Rain probability icon" />
         <div>
           <div class="label">Chance of rain</div>
-          <div id="chance-of-rain" class="value">0%</div>
+          <div id="chance-of-rain" class="value"></div>
         </div>
       </article>
       <article class="metric">
         <img src="./icons/arrow-right.png" alt="Wind icon" data-invert />
         <div>
           <div class="label">Wind</div>
-          <div id="wind" class="value">7.9 km/h</div>
+          <div id="wind" class="value"></div>
         </div>
       </article>
       <article class="metric">
         <img src="./icons/sunrise.png" alt="Sunrise icon" />
         <div>
           <div class="label">Sunrise</div>
-          <div id="sunrise" class="value">05:38 AM</div>
+          <div id="sunrise" class="value"></div>
         </div>
       </article>
       <article class="metric">
         <img src="./icons/sunset.png" alt="Sunset icon" />
         <div>
           <div class="label">Sunset</div>
-          <div id="sunset" class="value">07:34 PM</div>
+          <div id="sunset" class="value"></div>
         </div>
       </article>
       <article class="metric">
         <img src="./icons/sun.png" alt="UV index icon" data-invert />
         <div>
           <div class="label">UV Index</div>
-          <div id="uv-index" class="value">2.6</div>
+          <div id="uv-index" class="value"></div>
         </div>
       </article>
       <article class="metric">
         <img src="./icons/trend.png" alt="Pressure icon" />
         <div>
           <div class="label">Pressure</div>
-          <div id="pressure" class="value">1011 mb</div>
+          <div id="pressure" class="value"></div>
         </div>
       </article>
       <article class="metric">
         <img src="./icons/raindrop.png" alt="Humidity icon" />
         <div>
           <div class="label">Humidity</div>
-          <div id="humidity" class="value">40%</div>
+          <div id="humidity" class="value"></div>
         </div>
       </article>
       <article class="metric">
         <img src="./icons/gusts.png" alt="Gusts icon" />
         <div>
           <div class="label">Gusts</div>
-          <div id="gusts" class="value">16.6 km/h</div>
+          <div id="gusts" class="value"></div>
         </div>
       </article>
     </section>
@@ -134,80 +134,13 @@
   <!-- Hourly Forecast -->
   <section id="hourly-forecast" aria-label="Hourly forecast">
     <h2>Hourly</h2>
-    <div class="forecast-grid" id="hourly-data-container">
-      <div class="card">
-        <div>5 AM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-      <div class="card">
-        <div>6 AM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-      <div class="card">
-        <div>7 AM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-      <div class="card">
-        <div>8 AM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-      <div class="card">
-        <div>9 AM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-      <div class="card">
-        <div>10 AM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-      <div class="card">
-        <div>11 AM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-      <div class="card">
-        <div>12 PM</div>
-        <img src="./icons/clear-day.png" alt="Sunny" />
-      </div>
-    </div>
+    <div class="forecast-grid" id="hourly-data-container"></div>
   </section>
 
   <!-- Weekly Forecast -->
   <section id="weekly-forecast" aria-label="Weekly forecast">
     <h2>This Week</h2>
-    <div class="forecast-grid" id="week-data-container">
-      <div class="card">
-        <div class="img-container"><img src="./icons/clear-day.png" alt="Sunny" /></div>
-        <div class="data">
-          <div class="week">SUN</div>
-          <div class="date">18 MAY</div>
-          <div class="data">
-            <div><div class="number">12.2°</div><div class="text">min</div></div>
-            <div><div class="number">35.1°</div><div class="text">max</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="img-container"><img src="./icons/clear-day.png" alt="Sunny" /></div>
-        <div class="data">
-          <div class="week">MON</div>
-          <div class="date">19 MAY</div>
-          <div class="data">
-            <div><div class="number">10.8°</div><div class="text">min</div></div>
-            <div><div class="number">34°</div><div class="text">max</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="img-container"><img src="./icons/clear-day.png" alt="Sunny" /></div>
-        <div class="data">
-          <div class="week">TUE</div>
-          <div class="date">20 MAY</div>
-          <div class="data">
-            <div><div class="number">21.5°</div><div class="text">min</div></div>
-            <div><div class="number">38.8°</div><div class="text">max</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="forecast-grid" id="week-data-container"></div>
   </section>
 </body>
 </html>

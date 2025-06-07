@@ -44,11 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const theme = Storage.get(STORAGE_KEYS.THEME, 'light')
   const location = Storage.get(STORAGE_KEYS.LOCATION)
   const hasRun = Storage.get(STORAGE_KEYS.HAS_RUN)
+  
   updateUnitGroupUI(unitGroup)
+  updateThemeUI(theme)
+  document.body.setAttribute('data-theme', theme)
 
-  if (hasRun && location && theme) {
+  if (hasRun && location) {
     fetchAndRenderWeather(location)
-    updateThemeUI(theme)
   } else {
     const defaultLocation = 'Silver Spring'
     Storage.set(STORAGE_KEYS.HAS_RUN, true)
@@ -57,8 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
     Storage.set(STORAGE_KEYS.LOCATION, defaultLocation)
     fetchAndRenderWeather(defaultLocation)
   }
-
-  document.body.setAttribute('data-theme', theme)
 })
 
 form.addEventListener('submit', handleFormSubmit)
