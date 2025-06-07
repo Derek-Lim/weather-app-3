@@ -2,14 +2,19 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
   /* border: 1px solid; */
 }
 
 :root {
-  --light-grey: rgb(240 240 240);
-  --grey: rgb(110 110 110);
-  --dark-grey: rgb(50 50 50);
+  --bg: white;
+  --bg-secondary: rgb(240 240 240);
+  --bg-tertiary: rgb(110 110 110);
+  --bg-quinary: rgb(50 50 50);
+  --text: black;
+
+  --shadow: rgba(0, 0, 0, 0.1);
 
   --xs-icon: 1.25rem;
   --sm-icon: 2.25rem;
@@ -24,7 +29,23 @@
   --xl-text: 7rem;
 }
 
+[data-theme="dark"] {
+  --bg: rgb(30 30 30);
+  --bg-secondary: rgb(40 40 40);
+  --bg-tertiary: rgb(160 160 160);
+  --bg-quinary: rgb(210 210 210);
+  --text: rgb(240 240 240);
+
+  --shadow: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] img[data-invert] {
+  filter: invert(100%);
+}
+
 body {
+  background-color: var(--bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   max-width: 65rem;
@@ -51,17 +72,20 @@ img {
   flex-grow: 1;
   align-items: center;
   border-radius: 2rem;
-  background-color: var(--light-grey);
+  background-color: var(--bg-secondary);
 }
 
 #location-form > button {
   font-size: 1.5rem;
+  background-color: transparent;
+  color: inherit;
 }
 
 input {
   border: none;
   flex-grow: 1;
-  background-color: var(--light-grey);
+  background-color: transparent;
+  color: inherit;
   font-size: 1rem;
 }
 
@@ -80,12 +104,12 @@ button {
 #settings-button {
   padding: 1.25em;
   border-radius: 50%;
-  background-color: var(--light-grey);
+  background-color: var(--bg-secondary);
   transition: background-color 150ms ease-in-out;
 }
 
 #settings-button:hover, #settings-button:focus {
-  background-color: var(--grey);
+  background-color: var(--bg-tertiary);
 }
 
 .dropdown-menu {
@@ -94,8 +118,10 @@ button {
   position: absolute;
   right: .5rem;
   top: calc(100% + .5rem);
-  background-color: white;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+  background-color: var(--bg);
+  z-index: 1;
+  color: var(--text);
+  box-shadow: 0 2px 5px 0 var(--shadow);
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
@@ -118,7 +144,7 @@ button {
 }
 
 .dropdown-menu > .dropdown-option:hover {
-  background-color: var(--light-grey);
+  background-color: var(--bg-secondary);
 }
 
 /* Main Weather Section */
@@ -152,7 +178,7 @@ button {
 
 #conditions {
   font-size: var(--md-text);
-  color: var(--grey);
+  color: var(--bg-tertiary);
   margin-top: -1rem;
 }
 
@@ -179,7 +205,7 @@ button {
 
 .weather-data .label {
   font-size: var(--sm-text);
-  color: var(--grey);
+  color: var(--bg-tertiary);
 }
 
 .weather-data .value {
@@ -188,7 +214,7 @@ button {
 }
 
 #feels-like {
-  color: var(--grey);
+  color: var(--bg-tertiary);
   font-size: var(--sm-text);
   grid-column: span 2;
   padding: .5em;
@@ -214,7 +240,7 @@ button {
 }
 
 .metric .label {
-  color: var(--dark-grey);
+  color: var(--bg-quinary);
 }
 
 .metric .value {
@@ -241,7 +267,7 @@ button {
 }
 
 #hourly-data-container .card {
-  background-color: var(--light-grey);
+  background-color: var(--bg-secondary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -273,7 +299,7 @@ button {
 }
 
 #week-data-container .card {
-  background-color: var(--light-grey);
+  background-color: var(--bg-secondary);
   display: flex;
   padding: 1em;
   border-radius: .75rem;
@@ -307,7 +333,7 @@ button {
 }
 
 #week-data-container .data .date {
-  color: var(--dark-grey);
+  color: var(--bg-quinary);
 }
 
 #week-data-container .data .data .number {

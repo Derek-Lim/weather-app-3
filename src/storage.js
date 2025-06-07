@@ -2,7 +2,8 @@ export const STORAGE_KEYS = {
   WEATHER: 'weather-data',
   HAS_RUN: 'has-run',
   UNIT_GROUP: 'unit-group',
-  LOCATION: 'location'
+  LOCATION: 'location',
+  THEME: 'theme'
 }
 
 export const Storage = {

@@ -10,10 +10,17 @@ import clearDayIcon from './icons/clear-day.png'
 import clearNightIcon from './icons/clear-night.png'
 import imperialIcon from './icons/imperial.png'
 import metricIcon from './icons/metric.png'
+import lightModeIcon from './icons/light-mode.png'
+import darkModeIcon from './icons/dark-mode.png'
 
 export const UNIT_GROUP_ICONS = {
   'us': imperialIcon,
   'metric': metricIcon
+}
+
+export const THEME_ICONS = {
+  'light': lightModeIcon,
+  'dark': darkModeIcon
 }
 
 const WEATHER_ICONS = {

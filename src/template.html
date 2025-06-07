@@ -9,7 +9,7 @@
   <!-- Landmark: Header -->
   <header id="header-controls" role="banner">
     <form id="location-form" role="search" aria-label="Search for location">
-      <img src="./icons/search.png" alt="search icon" />
+      <img src="./icons/search.png" alt="search icon" data-invert />
       <input
         autofocus
         type="search"
@@ -21,19 +21,19 @@
 
     <aside id="settings-dropdown" aria-label="Settings panel">
       <button id="settings-button" aria-haspopup="true" aria-expanded="false" aria-label="Open settings">
-        <img src="./icons/settings.png" alt="settings icon" />
+        <img src="./icons/settings.png" alt="settings icon" data-invert />
       </button>
       <nav class="dropdown-menu" aria-label="Settings options">
         <div class="dropdown-option" role="menuitem" id="unit-group-toggle">
-          <img src="./icons/imperial.png" alt="unit setting">
+          <img src="./icons/imperial.png" alt="unit setting" data-invert>
           <div class="text">Imperial</div>
         </div>
         <div class="dropdown-option" role="menuitem" id="theme-toggle">
-          <img src="./icons/light-mode.png" alt="theme setting" />
+          <img src="./icons/light-mode.png" alt="theme setting" data-invert />
           <div class="text">Light</div>
         </div>
         <div class="dropdown-option" role="menuitem">
-          <img src="./icons/placeholder.png" alt="saved location" />
+          <img src="./icons/placeholder.png" alt="saved location" data-invert />
           <div class="text">Location</div>
         </div>
       </nav>
@@ -53,14 +53,14 @@
       </div>
       <div class="temperature-range">
         <div id="min-temp">
-          <img src="./icons/arrow-down.png" alt="Low temperature icon" />
+          <img src="./icons/arrow-down.png" alt="Low temperature icon" data-invert />
           <div class="weather-data">
             <div class="label">Min</div>
             <div class="value">12.2°</div>
           </div>
         </div>
         <div id="max-temp">
-          <img src="./icons/up-arrow.png" alt="High temperature icon" />
+          <img src="./icons/up-arrow.png" alt="High temperature icon" data-invert />
           <div class="weather-data">
             <div class="label">Max</div>
             <div class="value">35.1°</div>
@@ -80,7 +80,7 @@
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/arrow-right.png" alt="Wind icon" />
+        <img src="./icons/arrow-right.png" alt="Wind icon" data-invert />
         <div>
           <div class="label">Wind</div>
           <div id="wind" class="value">7.9 km/h</div>
@@ -101,7 +101,7 @@
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/sun.png" alt="UV index icon" />
+        <img src="./icons/sun.png" alt="UV index icon" data-invert />
         <div>
           <div class="label">UV Index</div>
           <div id="uv-index" class="value">2.6</div>

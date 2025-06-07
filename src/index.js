@@ -1,13 +1,14 @@
 import './styles.css'
 import { Storage, STORAGE_KEYS } from './storage.js'
 import { getUnit } from './units.js'
-import { createWeatherIcon, UNIT_GROUP_ICONS } from './icons.js'
+import { createWeatherIcon, THEME_ICONS, UNIT_GROUP_ICONS } from './icons.js'
 import { formatTime, formatHourOffset, formatDate, getDayName } from './formatters.js'
 import { getWeatherData } from './api.js'
 
 const form = document.getElementById('location-form')
 const settingsButton = document.getElementById('settings-button')
 const unitGroupToggle = document.getElementById('unit-group-toggle')
+const themeToggle = document.getElementById('theme-toggle')
 
 function switchUnitGroup() {
   const current = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
@@ -23,21 +24,41 @@ function updateUnitGroupUI(unitGroup) {
   label.textContent = unitGroup === 'us' ? 'Imperial' : 'Metric'
 }
 
+function switchTheme() {
+  const current = Storage.get(STORAGE_KEYS.THEME, 'light')
+  const next = current === 'light' ? 'dark' : 'light'
+  Storage.set(STORAGE_KEYS.THEME, next)
+  document.body.setAttribute('data-theme', next)
+  return next
+}
+
+function updateThemeUI(theme) {
+  const icon = themeToggle.querySelector('img')
+  const label = themeToggle.querySelector('.text')
+  icon.src = THEME_ICONS[theme]
+  label.textContent = theme === 'light' ? 'Light' : 'Dark'
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const unitGroup = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
+  const theme = Storage.get(STORAGE_KEYS.THEME, 'light')
   const location = Storage.get(STORAGE_KEYS.LOCATION)
   const hasRun = Storage.get(STORAGE_KEYS.HAS_RUN)
   updateUnitGroupUI(unitGroup)
 
-  if (hasRun && location) {
+  if (hasRun && location && theme) {
     fetchAndRenderWeather(location)
+    updateThemeUI(theme)
   } else {
     const defaultLocation = 'Silver Spring'
     Storage.set(STORAGE_KEYS.HAS_RUN, true)
     Storage.set(STORAGE_KEYS.UNIT_GROUP, unitGroup)
+    Storage.set(STORAGE_KEYS.THEME, 'light')
     Storage.set(STORAGE_KEYS.LOCATION, defaultLocation)
     fetchAndRenderWeather(defaultLocation)
   }
+
+  document.body.setAttribute('data-theme', theme)
 })
 
 form.addEventListener('submit', handleFormSubmit)
@@ -68,6 +89,15 @@ unitGroupToggle.addEventListener('click', () => {
     updateUnitGroupUI(newUnitGroup)
     const location = Storage.get(STORAGE_KEYS.LOCATION)
     fetchAndRenderWeather(location)
+  }
+})
+
+themeToggle.addEventListener('click', () => {
+  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
+
+  if (isExpanded) {
+    const newTheme = switchTheme()
+    updateThemeUI(newTheme)
   }
 })
 
