@@ -9,7 +9,7 @@
   <!-- Landmark: Header -->
   <header id="header-controls" role="banner">
     <form id="location-form" role="search" aria-label="Search for location">
-      <img src="./icons/search.png" alt="search icon" data-invert />
+      <img src="./icons/search.png" alt="Search" data-invert />
       <input
         autofocus
         type="search"
@@ -21,19 +21,19 @@
 
     <aside id="settings-dropdown" aria-label="Settings panel">
       <button id="settings-button" aria-haspopup="true" aria-expanded="false" aria-label="Open settings">
-        <img src="./icons/settings.png" alt="settings icon" data-invert />
+        <img src="./icons/settings.png" alt="Settings" data-invert />
       </button>
       <nav class="dropdown-menu" aria-label="Settings options">
         <div class="dropdown-option" role="menuitem" id="unit-group-toggle">
-          <img alt="unit setting" data-invert>
+          <img alt="Unit Group" data-invert>
           <div class="text"></div>
         </div>
         <div class="dropdown-option" role="menuitem" id="theme-toggle">
-          <img alt="theme setting" data-invert />
+          <img alt="Theme" data-invert />
           <div class="text"></div>
         </div>
-        <div class="dropdown-option" role="menuitem">
-          <img src="./icons/placeholder.png" alt="saved location" data-invert />
+        <div class="dropdown-option" role="menuitem" data-open-modal>
+          <img src="./icons/placeholder.png" alt="Saved Location" data-invert />
           <div class="text">Location</div>
         </div>
       </nav>
@@ -45,7 +45,6 @@
     <!-- Weather Summary -->
     <section class="summary" aria-label="Current weather">
       <div class="main-container">
-        <img src="./icons/clear-day.png" alt="Clear weather icon" />
         <div>
           <div id="temp"></div>
           <div id="conditions"></div>
@@ -53,14 +52,14 @@
       </div>
       <div class="temperature-range">
         <div id="min-temp">
-          <img src="./icons/arrow-down.png" alt="Low temperature icon" data-invert />
+          <img src="./icons/arrow-down.png" alt="Min Temperature" data-invert />
           <div class="weather-data">
             <div class="label">Min</div>
             <div class="value"></div>
           </div>
         </div>
         <div id="max-temp">
-          <img src="./icons/up-arrow.png" alt="High temperature icon" data-invert />
+          <img src="./icons/up-arrow.png" alt="Max Temperature" data-invert />
           <div class="weather-data">
             <div class="label">Max</div>
             <div class="value"></div>
@@ -73,56 +72,56 @@
     <!-- Weather Metrics -->
     <section class="metrics" aria-label="Weather conditions">
       <article class="metric">
-        <img src="./icons/heavy-rain.png" alt="Rain probability icon" />
+        <img src="./icons/heavy-rain.png" alt="Chance Of Rain" />
         <div>
           <div class="label">Chance of rain</div>
           <div id="chance-of-rain" class="value"></div>
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/arrow-right.png" alt="Wind icon" data-invert />
+        <img src="./icons/arrow-right.png" alt="Wind" data-invert />
         <div>
           <div class="label">Wind</div>
           <div id="wind" class="value"></div>
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/sunrise.png" alt="Sunrise icon" />
+        <img src="./icons/sunrise.png" alt="Sunrise" />
         <div>
           <div class="label">Sunrise</div>
           <div id="sunrise" class="value"></div>
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/sunset.png" alt="Sunset icon" />
+        <img src="./icons/sunset.png" alt="Sunset" />
         <div>
           <div class="label">Sunset</div>
           <div id="sunset" class="value"></div>
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/sun.png" alt="UV index icon" data-invert />
+        <img src="./icons/sun.png" alt="UV Index" data-invert />
         <div>
           <div class="label">UV Index</div>
           <div id="uv-index" class="value"></div>
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/trend.png" alt="Pressure icon" />
+        <img src="./icons/trend.png" alt="Pressure" />
         <div>
           <div class="label">Pressure</div>
           <div id="pressure" class="value"></div>
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/raindrop.png" alt="Humidity icon" />
+        <img src="./icons/raindrop.png" alt="Humidity" />
         <div>
           <div class="label">Humidity</div>
           <div id="humidity" class="value"></div>
         </div>
       </article>
       <article class="metric">
-        <img src="./icons/gusts.png" alt="Gusts icon" />
+        <img src="./icons/gusts.png" alt="Gusts" />
         <div>
           <div class="label">Gusts</div>
           <div id="gusts" class="value"></div>
@@ -142,5 +141,35 @@
     <h2>This Week</h2>
     <div class="forecast-grid" id="week-data-container"></div>
   </section>
+
+  <!-- Location Modal -->
+  <dialog class="modal" data-modal>
+    <div class="modal-content">
+      <button type="button" data-close-modal class="modal-close" aria-label="Close">
+        <img src="./icons/close.png" alt="Close">
+      </button>
+
+      <div class="modal-section">
+        <div class="modal-label">Location:</div>
+        <div class="modal-value" id="location"></div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-label">Timezone:</div>
+        <div class="modal-value" id="timezone"></div>
+      </div>
+
+      <div class="modal-section date-and-time">
+        <div>
+          <div class="modal-label">Date</div>
+          <div class="modal-value" id="date"></div>
+        </div>
+        <div>
+          <div class="modal-label">Local Time</div>
+          <div class="modal-value" id="time"></div>
+        </div>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>

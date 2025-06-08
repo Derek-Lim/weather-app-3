@@ -1,18 +1,18 @@
-export function mapCurrentConditions(raw) {
+export function mapCurrentConditions(data) {
   return {
-    icon: raw.icon,
-    temp: raw.temp,
-    conditions: raw.conditions,
-    feelsLike: raw.feelslike,
-    chanceOfRain: raw.precipprob,
-    wind: raw.windspeed,
-    sunrise: raw.sunrise,
-    sunset: raw.sunset,
-    uvIndex: raw.uvindex,
-    pressure: raw.pressure,
-    humidity: raw.humidity,
-    gusts: raw.windgust,
-    currentTime: raw.datetime
+    icon: data.icon,
+    temp: data.temp,
+    conditions: data.conditions,
+    feelsLike: data.feelslike,
+    chanceOfRain: data.precipprob,
+    wind: data.windspeed,
+    sunrise: data.sunrise,
+    sunset: data.sunset,
+    uvIndex: data.uvindex,
+    pressure: data.pressure,
+    humidity: data.humidity,
+    gusts: data.windgust,
+    currentTime: data.datetime
   }
 }
 
@@ -39,4 +39,13 @@ export function mapDailyForecast(days) {
     min: d.tempmin,
     max: d.tempmax
   }))
+}
+
+export function mapModalData(data) {
+  return {
+    location: data.resolvedAddress,
+    timezone: data.timezone,
+    date: data.days[0]?.datetime,
+    time: data.currentConditions?.datetime
+  }
 }

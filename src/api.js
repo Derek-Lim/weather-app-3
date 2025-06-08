@@ -1,5 +1,5 @@
 import { Storage, STORAGE_KEYS } from './storage.js'
-import { mapCurrentConditions, mapHourlyIcons, mapDailyForecast } from './mappers.js'
+import { mapCurrentConditions, mapHourlyIcons, mapDailyForecast, mapModalData } from './mappers.js'
 
 export async function getWeatherData(location) {
   const unitGroup = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
@@ -10,5 +10,6 @@ export async function getWeatherData(location) {
   const current = mapCurrentConditions(data.currentConditions)
   const hourlyIcons = mapHourlyIcons(data)
   const dailyData = mapDailyForecast(data.days)
-  return { ...current, hourlyIcons, dailyData }
+  const modalData = mapModalData(data)
+  return { ...current, hourlyIcons, dailyData, modalData }
 }

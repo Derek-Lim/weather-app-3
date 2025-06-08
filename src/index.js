@@ -10,6 +10,33 @@ const settingsButton = document.getElementById('settings-button')
 const unitGroupToggle = document.getElementById('unit-group-toggle')
 const themeToggle = document.getElementById('theme-toggle')
 
+const modal = document.querySelector('[data-modal]')
+const openModalBtn = document.querySelector('[data-open-modal]')
+const closeModalBtn = document.querySelector('[data-close-modal]')
+
+openModalBtn.addEventListener('click', () => {
+  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
+
+  if (isExpanded) modal.showModal()
+})
+closeModalBtn.addEventListener('click', () => modal.close())
+
+modal.addEventListener('click', e => {
+  const dialogDimensions = modal.getBoundingClientRect()
+  if (
+    e.clientX < dialogDimensions.left ||
+    e.clientX > dialogDimensions.right ||
+    e.clientY < dialogDimensions.top ||
+    e.clientY > dialogDimensions.bottom
+  ) {
+    modal.close()
+  }
+})
+
+modal.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') modal.close()
+})
+
 function switchUnitGroup() {
   const current = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
   const next = current === 'us' ? 'metric' : 'us'
@@ -50,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.setAttribute('data-theme', theme)
 
   if (hasRun && location) {
-    fetchAndRenderWeather(location)
+    // fetchAndRenderWeather(location)
+    renderWeather()
   } else {
     const defaultLocation = 'Silver Spring'
     Storage.set(STORAGE_KEYS.HAS_RUN, true)
@@ -135,6 +163,7 @@ function renderWeather() {
     renderCurrent(data)
     renderHourly(data.currentTime, data.hourlyIcons)
     renderWeek(data.dailyData)
+    renderModal(data.modalData)
   } catch (err) {
     console.error('Error rendering weather:', err.message)
   }
@@ -217,4 +246,18 @@ function renderWeek(days) {
     card.append(iconWrap, data)
     container.appendChild(card)
   })
+}
+
+function renderModal(data) {
+  const location = document.getElementById('location')
+  location.textContent = data.location
+
+  const timezone = document.getElementById('timezone')
+  timezone.textContent = data.timezone.replace('_', ' ')
+
+  const date = document.getElementById('date')
+  date.textContent = formatDate(data.date)
+  
+  const time = document.getElementById('time') 
+  time.textContent = formatTime(data.time)
 }
