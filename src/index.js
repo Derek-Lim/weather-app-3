@@ -1,3 +1,6 @@
+// =======================
+// Imports
+// =======================
 import './styles.css'
 import { Storage, STORAGE_KEYS } from './storage.js'
 import { getUnit } from './units.js'
@@ -5,37 +8,105 @@ import { createWeatherIcon, THEME_ICONS, UNIT_GROUP_ICONS } from './icons.js'
 import { formatTime, formatHourOffset, formatDate, getDayName } from './formatters.js'
 import { getWeatherData } from './api.js'
 
-const form = document.getElementById('location-form')
-const settingsButton = document.getElementById('settings-button')
-const unitGroupToggle = document.getElementById('unit-group-toggle')
-const themeToggle = document.getElementById('theme-toggle')
+// =======================
+// DOM Utilities
+// =======================
+const getById = id => document.getElementById(id)
 
+// =======================
+// Element References
+// =======================
+const form = getById('location-form')
+const settingsButton = getById('settings-button')
+const unitGroupToggle = getById('unit-group-toggle')
+const themeToggle = getById('theme-toggle')
 const modal = document.querySelector('[data-modal]')
 const openModalBtn = document.querySelector('[data-open-modal]')
 const closeModalBtn = document.querySelector('[data-close-modal]')
 
-openModalBtn.addEventListener('click', () => {
-  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
+// =======================
+// Event Listeners
+// =======================
 
-  if (isExpanded) modal.showModal()
+// Modal toggle
+openModalBtn.addEventListener('click', () => {
+  if (isSettingsExpanded()) modal.showModal()
 })
 closeModalBtn.addEventListener('click', () => modal.close())
-
 modal.addEventListener('click', e => {
-  const dialogDimensions = modal.getBoundingClientRect()
+  const rect = modal.getBoundingClientRect()
   if (
-    e.clientX < dialogDimensions.left ||
-    e.clientX > dialogDimensions.right ||
-    e.clientY < dialogDimensions.top ||
-    e.clientY > dialogDimensions.bottom
-  ) {
-    modal.close()
+    e.clientX < rect.left || e.clientX > rect.right ||
+    e.clientY < rect.top || e.clientY > rect.bottom
+  ) modal.close()
+})
+modal.addEventListener('keydown', e => {
+  if (e.key === 'Escape') modal.close()
+})
+
+// Settings toggle
+settingsButton.addEventListener('click', e => {
+  e.stopPropagation()
+  if (!isSettingsExpanded()) settingsButton.setAttribute('aria-expanded', 'true')
+})
+
+document.addEventListener('click', e => {
+  if (isSettingsExpanded() && !settingsButton.contains(e.target)) {
+    settingsButton.setAttribute('aria-expanded', 'false')
   }
 })
 
-modal.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') modal.close()
+// Form submission
+form.addEventListener('submit', handleFormSubmit)
+
+// Unit toggle
+unitGroupToggle.addEventListener('click', () => {
+  if (isSettingsExpanded()) {
+    const newGroup = switchUnitGroup()
+    updateUnitGroupUI(newGroup)
+    fetchAndRenderWeather(Storage.get(STORAGE_KEYS.LOCATION))
+  }
 })
+
+// Theme toggle
+themeToggle.addEventListener('click', () => {
+  if (isSettingsExpanded()) {
+    const newTheme = switchTheme()
+    updateThemeUI(newTheme)
+  }
+})
+
+// =======================
+// App Initialization
+// =======================
+document.addEventListener('DOMContentLoaded', () => {
+  const unitGroup = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
+  const theme = Storage.get(STORAGE_KEYS.THEME, 'light')
+  const location = Storage.get(STORAGE_KEYS.LOCATION)
+  const hasRun = Storage.get(STORAGE_KEYS.HAS_RUN)
+
+  updateUnitGroupUI(unitGroup)
+  updateThemeUI(theme)
+  document.body.setAttribute('data-theme', theme)
+
+  if (hasRun && location) {
+    renderWeather()
+  } else {
+    const defaultLocation = 'Silver Spring'
+    Storage.set(STORAGE_KEYS.HAS_RUN, true)
+    Storage.set(STORAGE_KEYS.UNIT_GROUP, unitGroup)
+    Storage.set(STORAGE_KEYS.THEME, 'light')
+    Storage.set(STORAGE_KEYS.LOCATION, defaultLocation)
+    fetchAndRenderWeather(defaultLocation)
+  }
+})
+
+// =======================
+// UI State Helpers
+// =======================
+function isSettingsExpanded() {
+  return settingsButton.getAttribute('aria-expanded') === 'true'
+}
 
 function switchUnitGroup() {
   const current = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
@@ -66,78 +137,14 @@ function updateThemeUI(theme) {
   label.textContent = theme === 'light' ? 'Light' : 'Dark'
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const unitGroup = Storage.get(STORAGE_KEYS.UNIT_GROUP, 'us')
-  const theme = Storage.get(STORAGE_KEYS.THEME, 'light')
-  const location = Storage.get(STORAGE_KEYS.LOCATION)
-  const hasRun = Storage.get(STORAGE_KEYS.HAS_RUN)
-  
-  updateUnitGroupUI(unitGroup)
-  updateThemeUI(theme)
-  document.body.setAttribute('data-theme', theme)
-
-  if (hasRun && location) {
-    // fetchAndRenderWeather(location)
-    renderWeather()
-  } else {
-    const defaultLocation = 'Silver Spring'
-    Storage.set(STORAGE_KEYS.HAS_RUN, true)
-    Storage.set(STORAGE_KEYS.UNIT_GROUP, unitGroup)
-    Storage.set(STORAGE_KEYS.THEME, 'light')
-    Storage.set(STORAGE_KEYS.LOCATION, defaultLocation)
-    fetchAndRenderWeather(defaultLocation)
-  }
-})
-
-form.addEventListener('submit', handleFormSubmit)
-
-settingsButton.addEventListener('click', (e) => {
-  e.stopPropagation()
-
-  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
-  if (!isExpanded) {
-    settingsButton.setAttribute('aria-expanded', 'true')
-  }
-})
-
-document.addEventListener('click', (e) => {
-  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
-  const clickedInside = settingsButton.contains(e.target)
-
-  if (isExpanded && !clickedInside) {
-    settingsButton.setAttribute('aria-expanded', 'false')
-  }
-})
-
-unitGroupToggle.addEventListener('click', () => {
-  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
-
-  if (isExpanded) {
-    const newUnitGroup = switchUnitGroup()
-    updateUnitGroupUI(newUnitGroup)
-    const location = Storage.get(STORAGE_KEYS.LOCATION)
-    fetchAndRenderWeather(location)
-  }
-})
-
-themeToggle.addEventListener('click', () => {
-  const isExpanded = settingsButton.getAttribute('aria-expanded') === 'true'
-
-  if (isExpanded) {
-    const newTheme = switchTheme()
-    updateThemeUI(newTheme)
-  }
-})
-
+// =======================
+// Core App Logic
+// =======================
 async function handleFormSubmit(event) {
   event.preventDefault()
-
   const input = form.querySelector('input')
   const location = input.value.trim()
-  if (!location) {
-    console.warn('No location entered')
-    return
-  }
+  if (!location) return console.warn('No location entered')
 
   input.value = ''
   Storage.set(STORAGE_KEYS.LOCATION, location)
@@ -169,9 +176,11 @@ function renderWeather() {
   }
 }
 
+// =======================
+// Render Helpers
+// =======================
 function renderCurrent(data) {
   const group = Storage.get(STORAGE_KEYS.UNIT_GROUP)
-  const getById = id => document.getElementById(id)
   document.querySelector('.main-container img')?.remove()
   document.querySelector('.main-container').prepend(createWeatherIcon(data.icon))
 
@@ -191,7 +200,7 @@ function renderCurrent(data) {
 }
 
 function renderHourly(currentTime, icons) {
-  const container = document.getElementById('hourly-data-container')
+  const container = getById('hourly-data-container')
   container.textContent = ''
 
   icons.forEach((icon, offset) => {
@@ -210,7 +219,7 @@ function renderHourly(currentTime, icons) {
 
 function renderWeek(days) {
   const group = Storage.get(STORAGE_KEYS.UNIT_GROUP)
-  const container = document.getElementById('week-data-container')
+  const container = getById('week-data-container')
   container.textContent = ''
 
   days.slice(1).forEach(day => {
@@ -249,15 +258,8 @@ function renderWeek(days) {
 }
 
 function renderModal(data) {
-  const location = document.getElementById('location')
-  location.textContent = data.location
-
-  const timezone = document.getElementById('timezone')
-  timezone.textContent = data.timezone.replace('_', ' ')
-
-  const date = document.getElementById('date')
-  date.textContent = formatDate(data.date)
-  
-  const time = document.getElementById('time') 
-  time.textContent = formatTime(data.time)
+  getById('location').textContent = data.location
+  getById('timezone').textContent = data.timezone.replace('_', ' ')
+  getById('date').textContent = formatDate(data.date)
+  getById('time').textContent = formatTime(data.time)
 }

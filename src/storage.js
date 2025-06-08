@@ -1,3 +1,6 @@
+// storage.js
+// Local storage utility with safe get/set methods
+
 export const STORAGE_KEYS = {
   WEATHER: 'weather-data',
   HAS_RUN: 'has-run',
@@ -7,6 +10,7 @@ export const STORAGE_KEYS = {
 }
 
 export const Storage = {
+  // Get value from localStorage, with optional fallback
   get(key, fallback = null) {
     try {
       const raw = localStorage.getItem(key)
@@ -16,6 +20,8 @@ export const Storage = {
       return fallback
     }
   },
+
+  // Set value in localStorage as JSON
   set(key, value) {
     try {
       localStorage.setItem(key, JSON.stringify(value))
