@@ -1,7 +1,7 @@
 // formatters.js
 // Helper functions for formatting text, time, and date values
 
-// Formats a time string like "05:15" into "5:15 AM"
+// Formats a time string like "05:15:00" into "5:15 AM"
 export function formatTime(time) {
   if (!time || typeof time !== 'string') return 'N/A'
   const [h, m] = time.split(':').map(Number)

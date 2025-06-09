@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.setAttribute('data-theme', theme)
 
   if (hasRun && location) {
-    renderWeather()
+    fetchAndRenderWeather(location)
   } else {
     const defaultLocation = 'Silver Spring'
     Storage.set(STORAGE_KEYS.HAS_RUN, true)
@@ -137,6 +137,12 @@ function updateThemeUI(theme) {
   label.textContent = theme === 'light' ? 'Light' : 'Dark'
 }
 
+function applyFadeIn(element) {
+  element.classList.remove('fade-in')
+  void element.offsetWidth
+  element.classList.add('fade-in')
+}
+
 // =======================
 // Core App Logic
 // =======================
@@ -181,22 +187,34 @@ function renderWeather() {
 // =======================
 function renderCurrent(data) {
   const group = Storage.get(STORAGE_KEYS.UNIT_GROUP)
-  document.querySelector('.main-container img')?.remove()
-  document.querySelector('.main-container').prepend(createWeatherIcon(data.icon))
 
-  getById('temp').textContent = `${data.temp}${getUnit(group, 'temp')}`
-  getById('conditions').textContent = data.conditions
-  getById('min-temp').querySelector('.value').textContent = `${data.dailyData[0].min}${getUnit(group, 'temp')}`
-  getById('max-temp').querySelector('.value').textContent = `${data.dailyData[0].max}${getUnit(group, 'temp')}`
-  getById('feels-like').textContent = `Feels like ${data.feelsLike}${getUnit(group, 'temp')}`
-  getById('chance-of-rain').textContent = `${data.chanceOfRain ?? 'N/A'}%`
-  getById('wind').textContent = `${data.wind ?? 'N/A'} ${getUnit(group, 'speed')}`
-  getById('sunrise').textContent = data.sunrise ? formatTime(data.sunrise) : 'N/A'
-  getById('sunset').textContent = data.sunset ? formatTime(data.sunset) : 'N/A'
-  getById('uv-index').textContent = data.uvIndex ?? 'N/A'
-  getById('pressure').textContent = `${data.pressure} hPa`
-  getById('humidity').textContent = data.humidity ? `${data.humidity}%` : 'N/A'
-  getById('gusts').textContent = `${data.gusts ?? 0} ${getUnit(group, 'speed')}`
+  const iconContainer = document.querySelector('.main-container')
+  const oldIcon = iconContainer.querySelector('img')
+  if (oldIcon) oldIcon.remove()
+  const newIcon = createWeatherIcon(data.icon)
+  applyFadeIn(newIcon)
+  iconContainer.prepend(newIcon)
+
+  const elements = [
+    [getById('temp'), `${data.temp}${getUnit(group, 'temp')}`],
+    [getById('conditions'), data.conditions],
+    [getById('min-temp').querySelector('.value'), `${data.dailyData[0].min}${getUnit(group, 'temp')}`],
+    [getById('max-temp').querySelector('.value'), `${data.dailyData[0].max}${getUnit(group, 'temp')}`],
+    [getById('feels-like'), `Feels like ${data.feelsLike}${getUnit(group, 'temp')}`],
+    [getById('chance-of-rain'), `${data.chanceOfRain ?? 'N/A'}%`],
+    [getById('wind'), `${data.wind ?? 'N/A'} ${getUnit(group, 'speed')}`],
+    [getById('sunrise'), data.sunrise ? formatTime(data.sunrise) : 'N/A'],
+    [getById('sunset'), data.sunset ? formatTime(data.sunset) : 'N/A'],
+    [getById('uv-index'), data.uvIndex ?? 'N/A'],
+    [getById('pressure'), `${data.pressure} hPa`],
+    [getById('humidity'), data.humidity ? `${data.humidity}%` : 'N/A'],
+    [getById('gusts'), `${data.gusts ?? 0} ${getUnit(group, 'speed')}`],
+  ]
+
+  for (const [el, text] of elements) {
+    el.textContent = text
+    applyFadeIn(el)
+  }
 }
 
 function renderHourly(currentTime, icons) {
@@ -205,7 +223,8 @@ function renderHourly(currentTime, icons) {
 
   icons.forEach((icon, offset) => {
     const card = document.createElement('div')
-    card.className = 'card'
+    card.className = 'card fade-in'
+    card.style.animationDelay = `${offset * 100}ms`
 
     const time = document.createElement('div')
     time.textContent = formatHourOffset(currentTime, offset)
@@ -222,9 +241,10 @@ function renderWeek(days) {
   const container = getById('week-data-container')
   container.textContent = ''
 
-  days.slice(1).forEach(day => {
+  days.slice(1).forEach((day, offset) => {
     const card = document.createElement('div')
-    card.className = 'card'
+    card.className = 'card fade-in'
+    card.style.animationDelay = `${offset * 200}ms`
 
     const iconWrap = document.createElement('div')
     iconWrap.className = 'img-container'

@@ -57,6 +57,19 @@ img {
   width: var(--xs-icon);
 }
 
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 500ms ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Header Controls */
 #header-controls {
   padding: 1em;
