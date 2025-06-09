@@ -1,0 +1,17 @@
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  max-width: 65rem;
+  margin: auto;
+}
+
+img {
+  display: block;
+  width: var(--xs-icon);
+}
+
+[data-theme="dark"] img[data-invert] {
+  filter: invert(100%);
+}

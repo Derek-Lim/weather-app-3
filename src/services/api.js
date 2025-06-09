@@ -2,7 +2,7 @@
 // Handles fetching weather data from the Visual Crossing Weather API
 
 import { Storage, STORAGE_KEYS } from './storage.js'
-import { mapCurrentConditions, mapHourlyIcons, mapDailyForecast, mapModalData } from './mappers.js'
+import { mapCurrentConditions, mapHourlyIcons, mapDailyForecast, mapModalData } from '../data/mappers.js'
 
 const API_KEY = 'JGM7G4V9AVASVNWUXBBZVPUPZ'
 

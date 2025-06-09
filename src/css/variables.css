@@ -1,0 +1,30 @@
+:root {
+  --bg: white;
+  --bg-secondary: rgb(240 240 240);
+  --bg-tertiary: rgb(110 110 110);
+  --bg-quinary: rgb(50 50 50);
+  --text: black;
+
+  --shadow: rgba(0, 0, 0, .1);
+
+  --xs-icon: 1.25rem;
+  --sm-icon: 2.25rem;
+  --md-icon: 3.5rem;
+  --lg-icon: 3.5rem;
+  --xl-icon: 5rem;
+  --xxl-icon: 7rem;
+
+  --sm-text: 1.25rem;
+  --md-text: 1.75rem;
+  --lg-text: 2.25rem;
+  --xl-text: 7rem;
+}
+
+[data-theme="dark"] {
+  --bg: rgb(30 30 30);
+  --bg-secondary: rgb(40 40 40);
+  --bg-tertiary: rgb(160 160 160);
+  --bg-quinary: rgb(210 210 210);
+  --text: rgb(240 240 240);
+  --shadow: rgba(0, 0, 0, 1);
+}

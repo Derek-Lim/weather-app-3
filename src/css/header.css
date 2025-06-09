@@ -1,0 +1,38 @@
+#header-controls {
+  padding: 1em;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+#location-form {
+  padding: 1em 1.5em;
+  display: flex;
+  gap: 1rem;
+  flex-grow: 1;
+  align-items: center;
+  border-radius: 2rem;
+  background-color: var(--bg-secondary);
+}
+
+#location-form > button {
+  font-size: 1.5rem;
+  background-color: transparent;
+  color: inherit;
+}
+
+input {
+  border: none;
+  flex-grow: 1;
+  background-color: transparent;
+  color: inherit;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+}

@@ -1,0 +1,63 @@
+@media (max-width: 32rem) {
+  #settings-dropdown {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+  }
+
+  #settings-button {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+  }
+
+  .dropdown-menu {
+    right: 4rem;
+    top: auto;
+    bottom: -1rem;
+    transform: translateY(10px);
+  }
+}
+
+@media (min-width: 36rem) {
+  .summary .main-container > img {
+    width: var(--xxl-icon);
+  }
+}
+
+@media (min-width: 46rem) {
+  .summary {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .summary .main-container {
+    flex-direction: row;
+  }
+
+  .temperature-range {
+    grid-template-columns: 1fr;
+  }
+
+  #feels-like {
+    grid-column: 1;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  #hourly-data-container.forecast-grid {
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr;
+  }
+}
+
+@media (min-width: 56rem) {
+  .temperature-range {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #feels-like {
+    grid-column: 2;
+  }
+}

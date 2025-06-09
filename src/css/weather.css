@@ -1,0 +1,72 @@
+#current-weather {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary .main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 1.5rem;
+}
+
+.summary .main-container > img {
+  width: var(--xl-icon);
+}
+
+#temp {
+  font-size: var(--xl-text);
+  font-weight: bold;
+}
+
+#conditions {
+  font-size: var(--md-text);
+  color: var(--bg-tertiary);
+  margin-top: -1rem;
+}
+
+.temperature-range {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: end;
+}
+
+#min-temp,
+#max-temp {
+  display: flex;
+  gap: .5rem;
+  padding: .5em 1.5em;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+}
+
+.weather-data .label {
+  font-size: var(--sm-text);
+  color: var(--bg-tertiary);
+}
+
+.weather-data .value {
+  font-weight: bold;
+  font-size: var(--lg-text);
+}
+
+#feels-like {
+  color: var(--bg-tertiary);
+  font-size: var(--sm-text);
+  grid-column: span 2;
+  padding: .5em;
+}

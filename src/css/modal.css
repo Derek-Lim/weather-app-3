@@ -1,0 +1,66 @@
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+  border: none;
+  border-radius: 1rem;
+  padding: 3em 2.5em;
+  background-color: var(--bg);
+  color: var(--text);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1rem 2rem var(--shadow);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-section:not(.date-and-time) {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+.date-and-time {
+  display: flex;
+  gap: 1em;
+  justify-content: space-between;
+}
+
+.date-and-time > div {
+  display: flex;
+  flex-direction: column;
+  gap: .25em;
+}
+
+.date-and-time .modal-label {
+  text-decoration: underline;
+}
+
+.modal-label {
+  font-size: var(--sm-text);
+  color: var(--bg-tertiary);
+}
+
+.modal-value {
+  font-size: var(--md-text);
+}
+
+.modal-close {
+  position: absolute;
+  top: .75rem;
+  right: 1.25rem;
+  background: none;
+  cursor: pointer;
+}
+
+.modal-close > img {
+  width: var(--sm-icon);
+}

@@ -1,12 +1,12 @@
 // =======================
 // Imports
 // =======================
-import './styles.css'
-import { Storage, STORAGE_KEYS } from './storage.js'
-import { getUnit } from './units.js'
-import { createWeatherIcon, THEME_ICONS, UNIT_GROUP_ICONS } from './icons.js'
-import { formatTime, formatHourOffset, formatDate, getDayName } from './formatters.js'
-import { getWeatherData } from './api.js'
+import './css/index.css'
+import { Storage, STORAGE_KEYS } from './services/storage.js'
+import { getUnit } from './data/units.js'
+import { createWeatherIcon, THEME_ICONS, UNIT_GROUP_ICONS } from './utils/icons.js'
+import { formatTime, formatHourOffset, formatDate, getDayName } from './data/formatters.js'
+import { getWeatherData } from './services/api.js'
 
 // =======================
 // DOM Utilities

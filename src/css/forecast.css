@@ -1,0 +1,124 @@
+/* Metrics Section */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  padding: 1em clamp(1em, 5vw, 3em);
+  row-gap: 1.5rem;
+}
+
+.metric {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.metric img {
+  width: var(--xs-icon);
+}
+
+.metric .label {
+  color: var(--bg-quinary);
+}
+
+.metric .value {
+  font-size: var(--sm-text);
+}
+
+/* Hourly Forecast */
+#hourly-forecast {
+  display: flex;
+  flex-direction: column;
+}
+
+#hourly-forecast > h2 {
+  padding: .75em;
+  font-size: var(--md-text);
+}
+
+#hourly-data-container.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  padding: .75em;
+  gap: .5rem;
+}
+
+#hourly-data-container .card {
+  background-color: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 1rem;
+  border-radius: .75rem;
+}
+
+#hourly-data-container .card img {
+  width: var(--sm-icon);
+}
+
+/* Weekly Forecast */
+#weekly-forecast {
+  display: flex;
+  flex-direction: column;
+}
+
+#weekly-forecast > h2 {
+  padding: .75em;
+  font-size: var(--md-text);
+}
+
+#week-data-container.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  padding: .75em;
+  gap: .75em;
+}
+
+#week-data-container .card {
+  background-color: var(--bg-secondary);
+  display: flex;
+  padding: 1em;
+  border-radius: .75rem;
+}
+
+#week-data-container .img-container {
+  display: flex;
+  align-items: center;
+  padding: 1.5em 1.5em 1.5em .5em;
+}
+
+#week-data-container .img-container img {
+  width: var(--md-icon);
+}
+
+#week-data-container .data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .25rem;
+}
+
+#week-data-container .data .data {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+#week-data-container .data .week {
+  font-weight: bold;
+}
+
+#week-data-container .data .date {
+  color: var(--bg-quinary);
+}
+
+#week-data-container .data .data .number {
+  font-weight: bold;
+  font-size: var(--md-text);
+}
+
+#week-data-container .data .data .text {
+  font-size: var(--sm-text);
+}

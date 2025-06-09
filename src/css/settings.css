@@ -1,0 +1,50 @@
+#settings-dropdown {
+  position: relative;
+}
+
+#settings-button {
+  padding: 1.25em;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  transition: background-color 150ms ease-in-out;
+}
+
+#settings-button:hover,
+#settings-button:focus {
+  background-color: var(--bg-tertiary);
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: .5rem;
+  top: calc(100% + .5rem);
+  background-color: var(--bg);
+  z-index: 1;
+  color: var(--text);
+  box-shadow: 0 2px 5px 0 var(--shadow);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+#settings-button:focus + .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-menu > .dropdown-option {
+  display: flex;
+  gap: .75rem;
+  padding: .75em 3.75em .75em .75em;
+  border-radius: 1rem;
+}
+
+.dropdown-menu > .dropdown-option .text {
+  font-weight: bold;
+}
+
+.dropdown-menu > .dropdown-option:hover {
+  background-color: var(--bg-secondary);
+}
